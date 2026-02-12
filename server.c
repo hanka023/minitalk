@@ -6,7 +6,7 @@
 /*   By: haskalov <haskalov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 13:37:42 by haskalov          #+#    #+#             */
-/*   Updated: 2026/02/12 18:20:51 by haskalov         ###   ########.fr       */
+/*   Updated: 2026/02/12 18:27:11 by haskalov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int server()
 
 
 pid_t server_pid = getpid();
+
+
 	
 return(0);
 	
