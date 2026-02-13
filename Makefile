@@ -10,34 +10,44 @@ FT_PRINTF = ./ft_printf/libftprintf.a
 #SRC = src/main.c
 
 # Zdrojové soubory
-SRCS =	main.c \
-		server.c \
-		client.c 
+SRCS =	server.c \
+		client.c \
+		./utils/ft_atoi.c
 
 # Objektové soubory
 OBJS = $(SRCS:%.c=%.o)
 
+
+
+# Zdrojové soubory
+SRCS_CL =	client.c \
+			./utils/ft_atoi.c
+
+SRCS_SV =	server.c \
+			./utils/ft_atoi.c
+
+# Objektové soubory
+OBJS_CL = $(SRCS_CL:%.c=%.o)
+
+OBJS_SV = $(SRCS_SV:%.c=%.o)
 # Název knihovny
 # NAME = ps.a
 
-NAME = minitalk
+NAME_CL = client
+NAME_SV = server
 
 # Výchozí cíl
-all: $(NAME)
+all: $(NAME_CL) $(NAME_SV)
 
 $(FT_PRINTF):
 	make -C  ./ft_printf
 
-# $(LIBFT):
-# 	make -C  ./libft
+$(NAME_CL): $(OBJS_CL) $(FT_PRINTF)
+	$(CC) $(CFLAGS) $(OBJS_CL) $(FT_PRINTF) -o $(NAME_CL)
 
 
-# Vytvoření statické knihovny
-# $(NAME): $(OBJS)
-# 	ar rcs $(NAME) $(OBJS)
-
-$(NAME): $(OBJS) $(FT_PRINTF)
-	$(CC) $(CFLAGS) $(OBJS) $(FT_PRINTF) -o $(NAME)
+$(NAME_SV): $(OBJS_SV) $(FT_PRINTF)
+	$(CC) $(CFLAGS) $(OBJS_SV) $(FT_PRINTF) -o $(NAME_SV)	
 
 # Překlad .c → .o
 %.o: %.c
@@ -45,13 +55,13 @@ $(NAME): $(OBJS) $(FT_PRINTF)
 
 # Vyčištění objektových souborů
 clean:
-	rm -f $(OBJS)
+	rm -f	$(OBJS_CL)	$(OBJS_SV)
 	make -C ./ft_printf clean
 
 
 # Vyčištění všeho (objekty + knihovna)
 fclean: clean
-	rm -f $(NAME)
+	rm -f $(NAME_CL)	$(NAME_SV)
 	make -C ./ft_printf fclean
 
 

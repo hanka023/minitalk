@@ -6,28 +6,27 @@
 /*   By: haskalov <haskalov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 13:37:42 by haskalov          #+#    #+#             */
-/*   Updated: 2026/02/12 18:16:42 by haskalov         ###   ########.fr       */
+/*   Updated: 2026/02/13 16:02:36 by haskalov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
 
-pid_t getpid(void);
-
-int kill(int pid, int sig)
-{
-	
-}
-
-
 char send_char(int pid, char c)
 {
+ int bit;
 
-	
-ft_printf("Server PID: %d\n", pid);
-	
-	
+ bit = 0;
+ while (bit < 8)
+ {
+	if ((c >> bit) & 1)
+		kill(pid, SIGUSR2);
+	else 
+		kill(pid, SIGUSR1);
+	++bit;
+ }
+return(0);
 }
 
 
