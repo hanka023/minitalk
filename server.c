@@ -6,50 +6,52 @@
 /*   By: haskalov <haskalov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 13:37:42 by haskalov          #+#    #+#             */
-/*   Updated: 2026/02/13 16:10:27 by haskalov         ###   ########.fr       */
+/*   Updated: 2026/02/13 18:25:30 by haskalov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-int pid()
-{
-pid_t server_pid = getpid();
-return(server_pid);
-}
 
-void handler(int signum)
+void	handler(int signum)
 {
-	static int bit;
-	int num;
-	char c;
+	static int	bit;
+	int			num;
+	static char	c;
 	
-	c = 0;
-		if (signum == SIGUSR1)
+	num = 0;
+	if (signum == SIGUSR1)
 		num = 0;
 	else if (signum == SIGUSR2)
 		num = 1;
 	else 
 		return ;
 
-		
 	c |= (num << bit); 
-	bit ++;
+	bit++;
 	
 	if (bit == 8)
 	{
-		ft_printf("%c\n");
+		ft_printf("%c", c);
 		bit = 0;
+		c = 0;
 	}
+	return ;
 }
 
-int main()
+int main(int argc, char *argv[])
 {
-	ft_printf("Server PID: %d\n", pid());
+	(void)argc;
+	(void)argv;
+	
+	ft_printf("Server PID: %d\n", getpid());
+
+	
 	signal(SIGUSR1, handler);
 	signal(SIGUSR2, handler);
 
-	while(1)
-		pause();
-
+	while (1)	
+		pause ();
+		
+	return (0);
 }
